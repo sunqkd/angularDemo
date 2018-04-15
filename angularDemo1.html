@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp"> <!--angular绑定 控制范围-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>angular</title>
+</head>
+<body>
+    <div ng-controller="mycontroller">
+        <!--展示控制台控制范围-->
+        {{aaa[0].username}}
+        <div ng-bind="aaa[0].username"></div>
+        {{bbb}}
+        <div ng-repeat="i in aaa"> <!--循环-->
+            <span>{{i.username}}</span>
+            <span>{{i.age}}</span>
+        </div>
+        <div ng-if="is"> <!--区别：销毁节点-->
+            显示和隐藏
+        </div>
+        <div ng-show="is"> <!--区别：简单的显示和隐藏 visibility:hiodden-->
+            show
+        </div>
+        <div ng-hide="is">
+            hide
+        </div>
+    </div>
+    <hr/>
+    <div ng-controller="abc">
+        <input type="text" ng-model="inputtext" ng-keydown="add($event)"/>
+        {{inputtext}}
+        <ul>
+            <li ng-repeat = "item in asad track by $index" >{{$index}}---{{item}}<button ng-click="remove($index)">x</button></li>
+            
+        </ul>
+    </div>
+    <script src="./angular.js"></script>
+    <script src="./demo1.js"></script>
+</body>
+</html>
