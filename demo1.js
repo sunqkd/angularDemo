@@ -68,5 +68,35 @@ App.controller("ajax",function($scope,$http){
         console.log(err)
     })
 })
-// 路由
 
+// 为了防止gulp压缩 官方写法 (顺序不能乱) 函数形参顺序相同
+App.controller("official",['$scope',function($scope){
+
+}])
+
+// 路由配置  $routeProvide 用来配置路由
+App.config(['$routeProvider', function($routeProvider){
+    /**
+     * when方法里面有两个形参 第一个表示路径 第二个是一个对象templateUrl 为组建的地址
+     */
+    $routeProvider
+    .when('/home',{
+        templateUrl: 'template/home.html',
+        controller: 'home'
+    })
+    .when('/course',{
+        templateUrl: 'template/course.html',
+        controller: 'course'
+    })
+    .otherwise({ //默认主页
+		redirectTo:'/'
+	})
+}])
+
+App.controller('home',['$scope',function($scope){
+    $scope.abc="77sdf"
+}])
+
+App.controller('course',['$scope',function(){
+
+}])

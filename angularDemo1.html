@@ -43,6 +43,28 @@
     <div ng-controller="ajax">
         
     </div>
+    <div ng-controller = "official">
+
+    </div>
+    <table style="width:100%" border="1">
+        <tr>
+            <td>header</td>
+        </tr>
+        <tr style="height:500px">
+            <td style="width:10%">
+                <a href = "#/home">home</a>
+                <a href = "#/course">course</a>
+            </td>
+            <td>
+                <!--路由显示区域-->
+                <ng-view></ng-view>
+            </td>
+        </tr>
+        <tr>
+            <td>footer</td>
+        </tr>
+    </table>
+    
     <script src="./angular.js"></script>
     <script src="./angular-route.min.js"></script>
     <script src="./demo1.js"></script>
