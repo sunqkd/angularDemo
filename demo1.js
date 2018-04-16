@@ -69,3 +69,4 @@ App.controller("ajax",function($scope,$http){
     })
 })
 // 路由
+
