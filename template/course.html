@@ -1,3 +1,6 @@
 <div>
     course
+    <div ng-repeat="item in detail">
+       <a href ="#course/detail/{{$index}}">{{$index}}--{{item.text}}</a>
+    </div>
 </div>

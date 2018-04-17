@@ -88,15 +88,37 @@ App.config(['$routeProvider', function($routeProvider){
         templateUrl: 'template/course.html',
         controller: 'course'
     })
+    .when('/course/detail/:id',{
+        templateUrl: 'template/detail.html',
+        controller: 'detail'
+    })
     .otherwise({ //默认主页
 		redirectTo:'/'
 	})
 }])
 
-App.controller('home',['$scope',function($scope){
+App.controller('home',['$scope','$rootScope',function($scope,$rootScope){
     $scope.abc="77sdf"
+    $rootScope.abc = "7758"
 }])
 
-App.controller('course',['$scope',function(){
+var detail = [
+    {
+        id:0,
+        text: "tomcat"
+    },{
+        id:1,
+        text: "tomcat2"
+    },{
+        id:2,
+        text: "tomcat3"
+    }
+]
+App.controller('course',['$scope','$rootScope',function($scope,$rootScope){
+    $scope.ref = $rootScope.abc
+    $scope.detail = detail
+}])
 
+App.controller('detail',['$scope','$rootScope','$routeParams',function($scope,$rootScope,$routeParams){
+    $scope.aaa = $routeParams.id
 }])
