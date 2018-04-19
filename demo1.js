@@ -79,6 +79,7 @@ App.config(['$routeProvider', function($routeProvider){
     /**
      * when方法里面有两个形参 第一个表示路径 第二个是一个对象templateUrl 为组建的地址
      */
+    $routeProvider.caseInsensitiveMatch = true; // 路由不区分大小写
     $routeProvider
     .when('/home',{
         templateUrl: 'template/home.html',
@@ -93,7 +94,7 @@ App.config(['$routeProvider', function($routeProvider){
         controller: 'detail'
     })
     .otherwise({ //默认主页
-		redirectTo:'/'
+		redirectTo:'/home'
 	})
 }])
 
@@ -114,9 +115,29 @@ var detail = [
         text: "tomcat3"
     }
 ]
-App.controller('course',['$scope','$rootScope',function($scope,$rootScope){
+App.controller('course',['$scope','$rootScope','$route',function($scope,$rootScope,$route){
     $scope.ref = $rootScope.abc
     $scope.detail = detail
+    // 刷新路由显示区域
+    $scope.rel = function(){
+        $route.reload()
+    }
+    /**也可以 $rootScope.$on 根节点添加路由事件，则每个路由都添加上了*/
+    // 路由跳转生命周期
+    $scope.$on('$routeChangeStart',function(event,next,current){
+        console.log(next)
+        if(confirm('跳转到'+ next.$$route.originalPath)){
+            // 跳转
+        }else {
+            // 取消跳转
+            event.preventDefault()
+        }
+    })
+    // 跳转成功  外部向里跳转
+    $scope.$on('$routeChangeSuccess',function(event,current,previous){
+        console.log(current)
+        console.log(previous)
+    })
 }])
 
 App.controller('detail',['$scope','$rootScope','$routeParams',function($scope,$rootScope,$routeParams){
