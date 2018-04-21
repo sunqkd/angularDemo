@@ -1,0 +1,14 @@
+
+<div ng-controller="parents">
+    <div ng-controller="child1">
+
+        <button ng-click="next()">触发下级事件</button>
+
+        <div ng-controller="grands">
+        </div>
+    </div>
+    <button>暂时没有横向触发事件</button>
+    <div ng-controller="child2">
+        <button ng-click="action()">触发上级事件</button>
+    </div>
+</div>

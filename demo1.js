@@ -27,7 +27,10 @@ App.factory("upper" ,function(){
         }
     }
 })
-
+// search 控制台
+App.controller("search",['$scope','$routeParams',function($scope,$routeParams){
+   $scope.id =  $routeParams.id
+}])
 // Controller  控制台
 App.controller("mycontroller", function($scope){
     $scope.aaa = users;
@@ -93,6 +96,14 @@ App.config(['$routeProvider', function($routeProvider){
         templateUrl: 'template/detail.html',
         controller: 'detail'
     })
+    .when('/search/:id',{
+        templateUrl: 'template/search.html',
+        controller: 'search'
+    })
+    .when('/conponments',{
+        templateUrl: 'template/conponments.html',
+        controller: 'compents'
+    })
     .otherwise({ //默认主页
 		redirectTo:'/home'
 	})
@@ -115,9 +126,14 @@ var detail = [
         text: "tomcat3"
     }
 ]
-App.controller('course',['$scope','$rootScope','$route',function($scope,$rootScope,$route){
+App.controller('course',['$scope','$rootScope','$route','$location',function($scope,$rootScope,$route,$location){
     $scope.ref = $rootScope.abc
     $scope.detail = detail
+    // 搜索框
+    $scope.searchdata = '4564864'
+    $scope.search = function(){
+        $location.url('/search/'+ $scope.searchdata)
+    }
     // 刷新路由显示区域
     $scope.rel = function(){
         $route.reload()
@@ -143,3 +159,49 @@ App.controller('course',['$scope','$rootScope','$route',function($scope,$rootSco
 App.controller('detail',['$scope','$rootScope','$routeParams',function($scope,$rootScope,$routeParams){
     $scope.aaa = $routeParams.id
 }])
+
+// 自定义指令
+App.directive('hello',function(){
+    return {
+        // 定义指令如何使用
+        restrict: 'ECMA', // 可以是标签、属性、class类、注释
+        // template:'<div>hello</div>'
+        templateUrl: 'template/templateUrl.html',
+        replace: true, // 更改dom结构，减少复杂度
+        controller: function($scope) { // 控制台
+            $scope.msg = 'abc123'
+        },
+        scope: {} // 嵌套controller 避免变量之间相互影响
+    }
+})
+
+App.controller('outcontroller',function($scope){
+    $scope.msg = "def456"
+})
+
+App.controller('compents',function($scope){
+    
+})
+
+
+/// 控制台
+App.controller('parents' ,['$scope', function($scope){
+    $scope.$on('parent1',function(){
+        console.log('parents1')
+    })
+}])
+App.controller('child1',function($scope){
+    $scope.next = function(){
+        $scope.$broadcast('grandfun')
+    }
+})
+App.controller('child2',function($scope){
+    $scope.action = function(){
+        $scope.$emit('parent1')  // 触发上级事件
+    }
+})
+App.controller('grands',function($scope){
+    $scope.$on('grandfun',function(){
+        console.log('下级事件')
+    })
+})
